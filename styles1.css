@@ -6,11 +6,13 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -19,10 +21,12 @@ body {
     align-items: center;
     background-color: #7595ff;
     padding: 10px;
+    color: white;
+    border-radius: 5px;
 }
 
 .header-right img {
-    max-width: 60px;
+    max-width: 70px;
 }
 
 .header-left h1 {
@@ -32,6 +36,7 @@ body {
 .invoice-info {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin: 20px 0;
 }
 
@@ -42,35 +47,38 @@ body {
 .product-item {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
-.product-item label {
+.product-item .form-group {
     margin-right: 10px;
 }
 
-.product-item select, .product-item input {
+.product-item select, .product-item input, .product-item button {
+    padding: 8px;
+    margin-top: 5px;
     margin-right: 10px;
-    padding: 5px;
-    background-color: #9ffff2;
-    border: none;
+    border: 1px solid #7595ff;
     border-radius: 5px;
 }
 
 .product-item button {
-    padding: 5px 10px;
-    background-color: #07fbd7;
+    background-color: #7595ff;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 
+.product-item button:hover {
+    background-color: #5673d3;
+}
 
 .total-payment {
     text-align: center;
-    border: 1px solid #b06363;
+    border: 1px solid #7595ff;
     padding: 20px;
     background-color: #fff;
+    border-radius: 5px;
 }
 
 .total-payment p {
@@ -93,43 +101,75 @@ body {
 }
 
 .product-table th, .product-table td {
-    border: 1px solid #cdfbf0;
+    border: 1px solid #7595ff;
     padding: 10px;
     text-align: center;
 }
 
-.product-table .delete {
-    color: red;
+.product-table th {
+    background-color: #7595ff;
+    color: white;
+}
+
+.product-table .delete button {
+    color: white;
+    background-color: red;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
     cursor: pointer;
+}
+
+.product-table .delete button:hover {
+    background-color: darkred;
 }
 
 .summary {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 20px;
-    padding: 10px;
+    background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    padding: 20px;
 }
 
-.summary-left, .summary-right {
-    width: 48%; /* Mengatur lebar kiri dan kanan */
+.summary-left,
+.summary-right {
+    width: 48%;
 }
 
-.summary-item {
-    margin-bottom: 5px;
+.summary table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.summary-item label {
-    font-weight: bold;
+.summary table td {
+    padding: 10px;
 }
 
-.summary-item span {
-    margin-left: 5px;
+.summary span::before {
+    content: "Rp. ";
+    color: #555;
 }
 
 .submit-button {
     text-align: right;
+}
+
+.submit-button button {
+    background-color: #7595ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button button:hover {
+    background-color: #5673d3;
 }
 
 .form-group {
@@ -149,54 +189,41 @@ body {
     box-sizing: border-box;
 }
 
-.form-group.date {
-    grid-column: 1 / -1;
+@media (max-width: 768px) {
+    .info-left, .info-right, .summary-left, .summary-right {
+        width: 100%;
+    }
+
+    .product-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .product-item .form-group {
+        margin-right: 0;
+    }
+
+    .product-item select, .product-item input, .product-item button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .submit-button {
+        text-align: center;
+    }
 }
 
-.items-table {
-    grid-column: 1 / -1;
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-}
+@media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
 
-.items-table th, .items-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-}
+    .header-right {
+        margin-top: 10px;
+    }
 
-.items-table th {
-    background-color: #aad3ff;
-}
-
-.total {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.total div {
-    margin-left: 20px;
-}
-
-.total input {
-    width: 100px;
-    padding: 5px;
-}
-
-.submit-button {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.submit-button button {
-    background-color: rgb(7, 251, 215);
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
+    .submit-button {
+        text-align: center;
+    }
 }

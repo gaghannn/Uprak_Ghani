@@ -6,6 +6,7 @@
   <title>Invoice Form</title>
   <link rel="stylesheet" href="styles1.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
 <div id="app" class="container">
@@ -15,7 +16,7 @@
       </div>
       <div class="header-right">
         <div class="logo">
-            <img src="unnamed.png" alt="Gambar tidak tersedia">
+            <img src="images/unnamed.png" alt="Gambar tidak tersedia">
         </div>
       </div>
     </div>
@@ -88,92 +89,43 @@
     </table>
 
     <div class="summary">
-      <div class="summary-left">
-        <div class="summary-item">
-          <label>Sub Total: Rp.</label>
-          <span>{{ subTotal.toFixed(2) }}</span>                  
+        <div class="summary-left">
+          <table>
+            <tr>
+              <td><label>Sub Total: </label></td>
+              <td><span>{{ subTotal.toFixed(2) }}</span></td>
+            </tr>
+            <tr>
+              <td><label>Diskon:</label></td>
+              <td>
+                <input type="number" min="0" v-model.number="diskon"> %
+                <span>= {{ diskonAmount.toFixed(2) }}</span>
+              </td>
+            </tr>
+            <tr>
+              <td><label>Total Harga:</label></td>
+              <td><span>{{ totalHarga.toFixed(2) }}</span></td>
+            </tr>
+          </table>
         </div>
-        <div class="summary-item">
-          <label>Diskon:</label>
-          <input type="number" v-model.number="diskon"> %
-          <span>= Rp. {{ diskonAmount.toFixed(2) }}</span>
+        <div class="summary-right">
+          <table>
+            <tr>
+              <td><label>Bayar:</label></td>
+              <td><input type="number" min="0" v-model.number="bayar"></td>
+            </tr>
+            <tr>
+              <td><label>Kembalian:</label></td>
+              <td><span>{{ kembalian.toFixed(2) }}</span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="submit-button">
+                <button @click="completeTransaction">Selesai</button>
+              </td>
+            </tr>
+          </table>
         </div>
-        <div class="summary-item">
-          <label>Total Harga: Rp.</label>
-          <span>{{ totalHarga.toFixed(2) }}</span>
-        </div>
-      </div>
-      <div class="summary-right">
-        <div class="summary-item">
-          <label>Bayar: Rp.</label>
-          <input type="number" v-model.number="bayar">
-        </div>
-        <div class="summary-item">
-          <label>Kembalian: Rp.</label>
-          <span>{{ kembalian.toFixed(2) }}</span>
-        </div>
-        <div class="submit-button">
-            <button @click="completeTransaction">Selesai</button>
-          </div>
-      </div>
-    </div>
+      </div>  
 </div>
-
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        nota: '0',
-        pelanggan: 'Masukkan Nama',
-        tanggal: '',
-        items: [
-          { id: '001', nama: 'Garam', harga: 3000 },
-          { id: '002', nama: 'Gula', harga: 4000 },
-          { id: '003', nama: 'MSG', harga: 3000 },
-          { id: '004', nama: 'Penyedap rasa', harga: 2000 },
-          { id: '005', nama: 'Saus Tiram', harga: 5000 },
-          { id: '006', nama: 'Saus Tomat', harga: 7000 },
-          { id: '007', nama: 'Saus Pedas', harga: 5500 }
-        ],
-        selectedItem: { id: '', nama: '', harga: 0 },
-        quantity: 1,
-        invoiceItems: [],
-        diskon: 0,
-        bayar: 0
-      },
-      computed: {
-        subTotal() {
-          return this.invoiceItems.reduce((sum, item) => sum + (item.harga * item.qty), 0);
-        },
-        diskonAmount() {
-          return this.subTotal * (this.diskon / 100);
-        },
-        totalHarga() {
-          return this.subTotal - this.diskonAmount;
-        },
-        totalPembayaran() {
-          return this.totalHarga;
-        },
-        kembalian() {
-          return this.bayar - this.totalHarga;
-        }
-      },
-      methods: {
-        addItem() {
-          if (this.selectedItem && this.quantity > 0) {
-            this.invoiceItems.push({ ...this.selectedItem, qty: this.quantity });
-            this.selectedItem = { id: '', nama: '', harga: 0 };
-            this.quantity = 1;
-          }
-        },
-        removeItem(index) {
-          this.invoiceItems.splice(index, 1);
-        },
-        completeTransaction() {
-          alert('Transaksi selesai!');
-        }
-      }
-    });
-  </script>
 </body>
 </html>
